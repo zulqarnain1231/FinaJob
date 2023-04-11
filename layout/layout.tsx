@@ -16,7 +16,7 @@ export default function Layout({ children }: Props) {
     else return false;
   }
   const HideFooter = () => {
-    if (Router.pathname === "/login")
+    if (Router.pathname === "/login" || Router.pathname === "/signup")
       return true;
     else return false;
   }
