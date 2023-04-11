@@ -72,7 +72,7 @@ const Login = () => {
             Forget Password?
           </button>
           <div className="w-full flex justify-between">
-            <p className="font-inter text-black-main text-left text-[13px] font-medium">Don't have an account?</p>
+            <p className="font-inter text-black-main text-left text-[13px] font-medium">{`Don't have an account?`}</p>
           <Link
             href={"/signup"}
             className="font-inter text-black-abbey text-[13px] font-medium"
