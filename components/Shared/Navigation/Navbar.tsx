@@ -53,10 +53,10 @@ const Navbar = () => {
                         })
                     }
                     <div className='flex justify-center items-center gap-3' >
-                        <Link href={""} >
+                        <Link href={"/login"} >
                             <Button Text='Login' variant='contained' style='w-[120px] h-[48px] text-black-abbey bg-white' />
                         </Link>
-                        <Link href={""} >
+                        <Link href={"/signup"} >
                             <Button Text='Sign Up' variant='outlined' style='w-[120px] h-[48px] text-white border-white' />
                         </Link>
                     </div>
