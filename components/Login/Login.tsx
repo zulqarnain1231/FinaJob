@@ -67,20 +67,22 @@ const Login = () => {
           Type="submit"
           Text="Login"
         />
-        <div className="w-full flex flex-col gap-2">
-          <button className="font-inter text-black-main text-left text-[13px] font-medium">
-            Forget Password?
-          </button>
-          <div className="w-full flex justify-between">
+        <div className="w-full flex justify-between ">
+          <div className="w-full flex">
             <p className="font-inter text-black-main text-left text-[13px] font-medium">{`Don't have an account?`}</p>
-          <Link
-            href={"/signup"}
-            className="font-inter text-black-abbey text-[13px] font-medium"
-          >
-            Signup
-          </Link>
+            <Link
+              href={"/signup"}
+              className="font-inter text-black-abbey text-[13px] font-medium"
+            >
+              Signup
+            </Link>
           </div>
-          
+          <Link
+            href={"/forgetpassword"}
+            className="font-inter text-black-main text-left text-[13px] whitespace-nowrap font-medium"
+          >
+            Forget Password?
+          </Link>
         </div>
       </form>
       <div className='w-full h-full hidden md:flex md:col-span-2 lg:col-span-3 bg-[url("/Login/Login.jpg")] bg-cover bg-no-repeat' />

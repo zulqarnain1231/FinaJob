@@ -11,12 +11,12 @@ export default function Layout({ children }: Props) {
   const Router = useRouter();
 
   const HideNavbar = () => {
-    if (Router.pathname === "/" || Router.pathname === "/login" || Router.pathname === "/signup")
+    if (Router.pathname === "/" || Router.pathname === "/login" || Router.pathname === "/signup" || Router.pathname === "/forgetpassword")
       return true;
     else return false;
   }
   const HideFooter = () => {
-    if (Router.pathname === "/login" || Router.pathname === "/signup")
+    if (Router.pathname === "/login" || Router.pathname === "/signup" || Router.pathname === "/forgetpassword")
       return true;
     else return false;
   }

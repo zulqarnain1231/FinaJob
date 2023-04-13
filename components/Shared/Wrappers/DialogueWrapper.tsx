@@ -5,12 +5,13 @@ import { RxCross1 } from "react-icons/rx";
 interface props {
   Open: boolean;
   CloseEvent: () => void;
+  SubmitEvent:(e: React.FormEvent<HTMLFormElement>) => void;
   style?: string;
   children: React.ReactNode;
   Title: string;
 }
 
-function DialogueWrapper({ Open, CloseEvent, style, children, Title }: props) {
+function DialogueWrapper({ Open, CloseEvent,SubmitEvent, style, children, Title }: props) {
   return (
     <Dialog
       open={Open}
@@ -39,7 +40,23 @@ function DialogueWrapper({ Open, CloseEvent, style, children, Title }: props) {
             <RxCross1 size={16} />
           </button>
         </div>
-        <div className="p-4 sm:p-6">{children}</div>
+        <div className="max-h-[400px] p-4 sm:p-6 overflow-auto">{children}</div>
+        <div className="w-full flex gap-6 items-center justify-end p-4 sm:p-6 ">
+          <button
+            onClick={CloseEvent}
+            type="button"
+            className={`font-inter font-bold text-[14px] leading-[21px] text-center text-white bg-red-500  h-[40px] w-[100px] rounded-[6px] `}
+          >
+            Cancel
+          </button>
+          <button
+            onClick={SubmitEvent}
+            type="submit"
+            className={`font-inter font-bold text-[14px] leading-[21px] text-center text-black-main bg-transparent border-2 h-[40px] w-[100px] rounded-[6px] `}
+          >
+            Save
+          </button>
+        </div>
       </div>
     </Dialog>
   );
