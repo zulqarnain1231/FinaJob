@@ -27,7 +27,7 @@ function DialogueWrapper({ Open, CloseEvent,SubmitEvent, style, children, Title 
         },
       }}
     >
-      <div className={`sm:w-[600px] ${style}`}>
+      <div className={`sm:w-[600px]  ${style}`}>
         <div className="w-full bg-brand-main h-[60px] flex sm:gap-0 gap-4 justify-between items-center p-4 sm:p-6">
           <h2 className="font-inter font-semibold text-lg text-white text-center capitalize">
             {Title}
@@ -40,8 +40,8 @@ function DialogueWrapper({ Open, CloseEvent,SubmitEvent, style, children, Title 
             <RxCross1 size={16} />
           </button>
         </div>
-        <div className="max-h-[400px] p-4 sm:p-6 overflow-auto">{children}</div>
-        <div className="w-full flex gap-6 items-center justify-end p-4 sm:p-6 ">
+        <div className="max-h-[450px] p-4 sm:p-6 overflow-auto">{children}</div>
+        <div className="w-full flex gap-6 items-center justify-end px-4 sm:px-6 py-4 ">
           <button
             onClick={CloseEvent}
             type="button"

@@ -4,15 +4,20 @@ import Button from "./Snippets/Button";
 import FilterButton from "./Snippets/FilterButton";
 import CategoryButton from "./Snippets/CategoryButton";
 import { MdKeyboardArrowDown, MdKeyboardArrowUp } from "react-icons/md";
-import DialogueWrapper from "../Shared/Wrappers/DialogueWrapper";
+import FilterDialogue from "./Snippets/FilterDialogue";
+import { filterTypes } from "../../types/types";
+import JobCard from "./Snippets/JobCard";
 interface Props {
   selectedCategory: any;
 }
+
 const Job: React.FC<Props> = ({ selectedCategory }: Props) => {
-  const [inputs, setInputs] = useState();
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [showLess, setShowLess] = useState<boolean>(true);
-  const handleFilterSubmit=(e: React.FormEvent<HTMLFormElement>) => {
+
+  // dummy state for showig data that will comme from api
+  const [data, setData] = useState<boolean>(false);
+  const handleFilterSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setOpenDialog(false);
   };
@@ -188,12 +193,19 @@ const Job: React.FC<Props> = ({ selectedCategory }: Props) => {
       picture: "/JobCategories/other.png",
     },
   ];
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<filterTypes>({
     filterDialog: false,
     noExperience: false,
     partTime: false,
     fullTime: false,
   });
+  // function to select or unselect a selected a filter
+  const toggleFilters = (filter: keyof filterTypes) => {
+    setFilters((prevState) => ({
+      ...prevState,
+      [filter]: !prevState[filter],
+    }));
+  };
   return (
     <ComponentWrapper>
       <div className="w-full flex flex-col gap-6">
@@ -202,18 +214,18 @@ const Job: React.FC<Props> = ({ selectedCategory }: Props) => {
           <Button
             text="No Experience"
             state={filters.noExperience}
-            setState={() => setFilters({ ...filters, noExperience: true })}
-            style="w-[140px]"
+            setState={() => toggleFilters("noExperience")}
+            style="w-[130px]"
           />
           <Button
             text="Part-Time"
             state={filters.partTime}
-            setState={() => setFilters({ ...filters, partTime: true })}
+            setState={() => toggleFilters("partTime")}
           />
           <Button
             text="Full-Time"
             state={filters.fullTime}
-            setState={() => setFilters({ ...filters, fullTime: true })}
+            setState={() => toggleFilters("fullTime")}
           />
         </div>
         {showLess && (
@@ -225,6 +237,7 @@ const Job: React.FC<Props> = ({ selectedCategory }: Props) => {
                     key={index}
                     text={item.name}
                     picture={item.picture}
+                    OnClick={() => setData(true)}
                   />
                 )
             )}
@@ -243,6 +256,7 @@ const Job: React.FC<Props> = ({ selectedCategory }: Props) => {
                 key={index}
                 text={item.name}
                 picture={item.picture}
+                OnClick={() => setData(true)}
               />
             ))}
             <button
@@ -253,24 +267,37 @@ const Job: React.FC<Props> = ({ selectedCategory }: Props) => {
             </button>
           </div>
         )}
-        <div className="w-full flex flex-col gap-4">
-          <p className="font-inter font-bold md:text-3xl text-xl text-black-main">
-            No Results
-          </p>
-          <p className="font-inter font-medium text-black-main text-[18px]">
-            No <span className="font-bold">{`"${selectedCategory}"`}</span> jobs
-            found
-          </p>
-        </div>
+        {!data && (
+          <div className="w-full flex flex-col gap-4">
+            <p className="font-inter font-bold md:text-3xl text-xl text-black-main">
+              No Results
+            </p>
+            <p className="font-inter font-medium text-black-main text-[18px]">
+              No <span className="font-bold">{`"${selectedCategory}"`}</span>{" "}
+              jobs found
+            </p>
+          </div>
+        )}
+        {data && (
+          <div className="w-full flex flex-col gap-6 mb-6">
+            <p className="font-inter font-bold text-2xl text-black-main">
+              Construction & Trades jobs in UK
+            </p>
+            <div className=" w-full grid lg:grid-cols-3 md:grid-cols-2 gap-[20px]">
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(
+                (item: any, index: number) => (
+                  <JobCard key={index} />
+                )
+              )}
+            </div>
+          </div>
+        )}
       </div>
-      <DialogueWrapper
-        Title="Filters"
+      <FilterDialogue
         Open={openDialog}
         CloseEvent={() => setOpenDialog(false)}
         SubmitEvent={handleFilterSubmit}
-      >
-        <p>hjdhfksdjf</p>
-      </DialogueWrapper>
+      />
     </ComponentWrapper>
   );
 };
