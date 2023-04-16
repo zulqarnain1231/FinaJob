@@ -5,22 +5,23 @@ interface Props {
     style?: string;
     variant: "contained" | "outlined" | "text";
     Type?: "button" | "submit" | "reset"
+    OnCLick:any;
 }
 
-function Button({ Text, style, variant, Type }: Props) {
+function Button({ Text, style, variant, Type,OnCLick }: Props) {
     const RenderButton = () => {
         if (variant === "text") {
-            return <button type={Type} className={`font-inter font-bold text-[14px] leading-[21px] text-center bg-transparent min-w-[60px] rounded-[6px] ${style}`} >
+            return <button onClick={OnCLick} type={Type} className={`font-inter font-bold text-[14px] leading-[21px] text-center bg-transparent min-w-[60px] rounded-[6px] ${style}`} >
                 {Text}
             </button>
         }
         else if (variant === "outlined") {
-            return <button type={Type} className={`font-inter font-bold text-[14px] leading-[21px] text-center bg-transparent border-[2px] min-w-[60px] rounded-[6px] ${style}`} >
+            return <button onClick={OnCLick} type={Type} className={`font-inter font-bold text-[14px] leading-[21px] text-center bg-transparent border-[2px] min-w-[60px] rounded-[6px] ${style}`} >
                 {Text}
             </button>
         }
         else {
-            return <button type={Type} className={`font-inter font-bold text-[14px] leading-[21px] text-center min-w-[60px] border-[2px] border-transparent rounded-[6px] ${style}`} >
+            return <button onClick={OnCLick} type={Type} className={`font-inter font-bold text-[14px] leading-[21px] text-center min-w-[60px] border-[2px] border-transparent rounded-[6px] ${style}`} >
                 {Text}
             </button>
         }

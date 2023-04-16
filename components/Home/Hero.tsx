@@ -55,7 +55,7 @@ function Hero() {
         <form onSubmit={SearchJob} className='w-full max-w-[950px] p-4 grid md:grid-cols-[4fr,4fr,2fr] gap-4 bg-white rounded-[10px]' >
           <SimpleInput name='WhichPosition' placeholder='Which position?' ChangeEvent={InputChange} value={Inputs.WhichPosition} required styles='md:h-[60px] h-[48px]' />
           <SimpleInput name='WhichCity' placeholder='Which city?' ChangeEvent={InputChange} value={Inputs.WhichCity} required styles='md:h-[60px] h-[48px]' />
-          <Button Text='Find jobs' variant='contained' Type='submit' style='w-full md:h-[60px] h-[40px] bg-brand-main text-white rounded-[8px]' />
+          <Button OnCLick={()=> {}} Text='Find jobs' variant='contained' Type='submit' style='w-full md:h-[60px] h-[40px] bg-brand-main text-white rounded-[8px]' />
         </form>
       </div>
     </ComponentWrapper>

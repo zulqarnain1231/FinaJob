@@ -1,9 +1,15 @@
 import React from "react";
 import Image from "next/image";
 import { MdOutlineLocationOn } from "react-icons/md";
-const JobCard = () => {
+import Link from "next/link";
+
+interface Props {
+  route: string;
+}
+
+const JobCard: React.FC<Props> = ({ route }: Props) => {
   return (
-    <div className="w-full shadow-md rounded-[8px]">
+    <Link href={route} className="w-full shadow-md rounded-[8px]">
       <div className="h-[200px] w-full relative rounded-[8x]">
         <Image
           src={"/JobCategories/cardDefault.webp"}
@@ -35,12 +41,16 @@ const JobCard = () => {
         <div className="w-full flex justify-between items-center">
           <div className="flex gap-2 items-center">
             <MdOutlineLocationOn size={15} className="text-black-abbey/70" />
-            <p className="font-inter font-medium text-black-abbey/70 text-[13px]">UK,Uk</p>
+            <p className="font-inter font-medium text-black-abbey/70 text-[13px]">
+              UK,Uk
+            </p>
           </div>
-          <p className="font-inter font-medium text-black-abbey/70 text-[13px]">23/6/2022</p>
+          <p className="font-inter font-medium text-black-abbey/70 text-[13px]">
+            23/6/2022
+          </p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

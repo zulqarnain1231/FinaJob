@@ -107,6 +107,7 @@ const SignUp = () => {
           </div>
         </div>
         <Button
+        OnCLick={()=> {}}
           variant="contained"
           style="bg-brand-main text-white h-[45px]"
           Type="submit"
