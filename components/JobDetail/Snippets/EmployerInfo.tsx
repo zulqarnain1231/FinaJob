@@ -14,7 +14,7 @@ const EmployerInfo = () => {
         </p>
         <Link
           className="font-inter font-bold text-[20px] text-indigo-500"
-          href={"/employer/2"}
+          href={"/employer/1"}
         >
           More Info
         </Link>
