@@ -35,3 +35,8 @@ export interface ISignUpInputs {
   password: string;
   confirmPassword?: string;
 }
+
+export interface ILoginInputs{
+  Email: string;
+  Password: string;
+}
