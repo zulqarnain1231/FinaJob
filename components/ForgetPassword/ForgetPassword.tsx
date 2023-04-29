@@ -28,8 +28,9 @@ const ForgetPassword = () => {
           Forget Password
         </p>
         {!otpSent && (
-          <div onClick={() => setOtpSent(true)} className="w-full">
+          <div className="w-full">
             <Button
+              OnCLick={() => setOtpSent(true)}
               variant="contained"
               style="bg-brand-main text-white h-[50px] w-full"
               Type="button"
@@ -57,10 +58,12 @@ const ForgetPassword = () => {
               />
             </div>
             <Button
+              OnCLick={() => setOtpSent(true)}
               variant="contained"
               style="bg-brand-main text-white h-[45px]"
               Type="submit"
               Text="Reset"
+             
             />
 
             <div className="w-full flex gap-4">

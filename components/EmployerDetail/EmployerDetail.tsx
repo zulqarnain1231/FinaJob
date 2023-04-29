@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import ComponentWrapper from "../Shared/Wrappers/ComponentWrapper";
 import Avatar from "@mui/material/Avatar";
 import { deepOrange } from "@mui/material/colors";
 import Button from "../Shared/Buttons/Button";
 import { MdOutlineLocationOn } from "react-icons/md";
 import JobCard from "../Job/Snippets/JobCard";
+import ChatDialog from "../Shared/ChatDialog/ChatDialog";
+
 const EmployerDetail = () => {
+  const [chatDialogue, setChatDialogue] = useState<boolean>(false);
   return (
     <ComponentWrapper style="py-6">
       <div className="w-full flex flex-col gap-4">
@@ -55,10 +58,14 @@ const EmployerDetail = () => {
                 </div>
 
                 <Button
-                  OnCLick={() => {}}
+                  OnCLick={() => setChatDialogue(true)}
                   Text="Chat"
                   variant="outlined"
                   style="border-indigo-400 text-indigo-500 border h-[46px] w-[80px]"
+                />
+                <ChatDialog
+                  CloseEvent={() => setChatDialogue(false)}
+                  Open={chatDialogue}
                 />
               </div>
             </div>

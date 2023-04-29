@@ -1,5 +1,6 @@
 declare module "react-modern-drawer";
 declare module "react-image-gallery";
+declare module "md5"
 
 export interface sellerMapTypes {
   weekly: boolean;
@@ -23,4 +24,14 @@ export interface filterTypes {
   noExperience: boolean;
   partTime: boolean;
   fullTime: boolean;
+}
+
+
+export interface ISignUpInputs {
+  role: string;
+  email: string;
+  firstName: string;
+  lastName: string;
+  password: string;
+  confirmPassword?: string;
 }

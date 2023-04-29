@@ -69,7 +69,7 @@ const Login = () => {
           Text="Login"
         />
         <div className="w-full flex justify-between ">
-          <div className="w-full flex">
+          <div className="flex justify-center items-center gap-2">
             <p className="font-inter text-black-main text-left text-[13px] font-medium">{`Don't have an account?`}</p>
             <Link
               href={"/signup"}

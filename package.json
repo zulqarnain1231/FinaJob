@@ -12,14 +12,19 @@
     "@emotion/styled": "^11.10.6",
     "@mui/material": "^5.11.16",
     "@mui/styled-engine-sc": "^5.11.11",
+    "axios": "^1.4.0",
+    "md5": "^2.3.0",
     "next": "latest",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-icons": "^4.8.0",
     "react-intl": "^6.3.2",
-    "react-modern-drawer": "^1.2.0"
+    "react-modern-drawer": "^1.2.0",
+    "react-otp-input": "^3.0.2",
+    "react-toastify": "^9.1.2"
   },
   "devDependencies": {
+    "@types/md5": "^2.3.2",
     "@types/node": "18.11.3",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
