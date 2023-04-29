@@ -7,9 +7,22 @@ import PasswordInput from "../Shared/Inputs/PasswordInput";
 import Button from "../Shared/Buttons/Button";
 import Divider from "../Shared/Divider";
 import Link from "next/link";
+import api from "../../utils/axiosInstance";
+import LogError from "../../utils/LogError";
+import {
+  ToastSuccess,
+  ToastError,
+  Toast,
+  ToastInfo,
+} from "../Shared/Toasts/Notification";
+import md5 from "md5";
+import Loading from "../Shared/Loading";
+import { ILoginInputs } from "../../types/types";
 
 const Login = () => {
-  const [Inputs, SetInputs] = useState({
+  const[user,setUser]=useState<string>('')
+  const[loading,setLoading]=useState<boolean>(false)
+  const [Inputs, SetInputs] = useState<ILoginInputs>({
     Email: "",
     Password: "",
   });
@@ -18,8 +31,32 @@ const Login = () => {
     SetInputs({ ...Inputs, [name]: value });
   };
 
-  const SubmitLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  const SubmitLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const body: ILoginInputs = {
+      ...Inputs,
+      Password: md5(Inputs.Password),
+    };
+    try {
+      const response = await api.post("/login", body);
+      if (response) {
+        setLoading(false);
+        if (
+          response?.status === 201
+        ) {
+          ToastSuccess(response?.data?.message);
+          setUser(response?.data?.user);
+        }
+        if (response?.status === 409) {
+          ToastSuccess(response?.data.message);
+        }
+      }
+     
+    } catch (error) {
+      setLoading(false);
+      LogError("Login", error);
+      ToastError("Server error, Unable to Login!");
+    }
   };
 
   return (
