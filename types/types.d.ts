@@ -36,7 +36,11 @@ export interface ISignUpInputs {
   confirmPassword?: string;
 }
 
-export interface ILoginInputs{
-  Email: string;
-  Password: string;
+export interface IApplyForjobInputs{
+  workExperience: string;
+  about: string;
+  education: string;
+  phone: string;
+  language: string;
+  languageLevel: string;
 }
