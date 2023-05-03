@@ -5,9 +5,8 @@ const api = axios.create({
         "Content-Type": "application/json",
         Accept: "application/json"
     },
-    baseURL: "http://localhost:4000/",
-    withCredentials: true
-    // baseURL: "https://next-jb-api.vercel.app/"
+    // baseURL: "http://localhost:4000/",
+    baseURL: "https://next-jb-api.vercel.app/"
 });
 
 export default api;

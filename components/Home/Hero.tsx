@@ -4,8 +4,9 @@ import ComponentWrapper from "../Shared/Wrappers/ComponentWrapper";
 import Link from "next/link";
 import SimpleInput from "../Shared/Inputs/SimpleInput";
 import Button from "../Shared/Buttons/Button";
+import { useAuth } from "../../hooks/useAuth";
 
-const Menus = [
+const unAuthMenu = [
   {
     Name: "Explore jobs",
     Route: "",
@@ -20,7 +21,15 @@ const Menus = [
   },
 ];
 
+const authMenu = [
+  {
+    Name: "Explore jobs",
+    Route: "",
+  },
+];
+
 function Hero() {
+  const { isAuthenticated, logout } = useAuth();
   const [Inputs, SetInputs] = useState({
     WhichPosition: "",
     WhichCity: "",
@@ -41,17 +50,39 @@ function Hero() {
           <Image src={"/logo.svg"} alt="" fill className="object-contain" />
         </div>
         <div className="flex justify-center items-center md:gap-4 gap-2">
-          {Menus?.map((item: any, index: number) => {
-            return (
-              <Link
-                key={index}
-                href={item.Route}
-                className={`font-inter font-medium md:text-[14px] text-[12px] leading-[32px] text-white relative rounded-full px-4 py-1 whitespace-nowrap bg-black-abbey/80 hover:bg-black-abbey`}
+          {!isAuthenticated &&
+            unAuthMenu?.map((item: any, index: number) => {
+              return (
+                <Link
+                  key={index}
+                  href={item.Route}
+                  className={`font-inter font-medium md:text-[14px] text-[12px] leading-[32px] text-white relative rounded-full px-4 py-1 whitespace-nowrap bg-black-abbey/80 hover:bg-black-abbey`}
+                >
+                  {item.Name}
+                </Link>
+              );
+            })}
+          {isAuthenticated && (
+            <>
+              {authMenu?.map((item: any, index: number) => {
+                return (
+                  <Link
+                    key={index}
+                    href={item.Route}
+                    className={`font-inter font-medium md:text-[14px] text-[12px] leading-[32px] text-white relative rounded-full px-4 py-1 whitespace-nowrap bg-black-abbey/80 hover:bg-black-abbey`}
+                  >
+                    {item.Name}
+                  </Link>
+                );
+              })}
+              <button
+                onClick={logout}
+                className="font-inter font-medium md:text-[14px] text-[12px] leading-[32px] text-white relative rounded-full px-4 py-1 whitespace-nowrap bg-black-abbey/80 hover:bg-black-abbey"
               >
-                {item.Name}
-              </Link>
-            );
-          })}
+                Logout
+              </button>
+            </>
+          )}
         </div>
       </div>
       <div className="w-full h-[calc(100%-80px)] flex justify-center items-center">

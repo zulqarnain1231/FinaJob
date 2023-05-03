@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Dialog from "@mui/material/Dialog";
 import { RxCross1 } from "react-icons/rx";
 import Button from "../Shared/Buttons/Button";
@@ -37,12 +37,48 @@ function OtpVerifyPop({ Open, close, style, user }: props) {
       ToastError("Unable to verify");
     }
   };
+
+  const [canReSendOtp, setReSendOtp] = useState<boolean>(false);
+  const [minutes, setMinutes] = useState(0);
+  const [seconds, setSeconds] = useState(0);
+  useEffect(() => {
+    if (minutes === 0 && seconds === 0) setReSendOtp(true);
+    const interval = setInterval(() => {
+      if (seconds > 0) {
+        setSeconds(seconds - 1);
+      }
+      if (seconds === 0) {
+        if (minutes === 0) {
+          clearInterval(interval);
+        } else {
+          setSeconds(59);
+          setMinutes(minutes - 1);
+        }
+      }
+    }, 1000);
+    return () => {
+      clearInterval(interval);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [seconds, minutes]);
+  const SetTimer = () => {
+    setMinutes(1);
+    setSeconds(0);
+  };
+  useEffect(() => {
+    setReSendOtp(false);
+    SetTimer();
+  }, []);
+
   const reSendOtp = async () => {
     try {
       const response = await api.post("/resendOTP", { email: user?.email });
       if (response) {
         if (response?.status === 200) {
           ToastSuccess(response?.data?.message);
+          setReSendOtp(false);
+          setMinutes(1);
+          setSeconds(0);
         }
         if (response?.status === 404) {
           ToastWarning(response?.data?.message);
@@ -53,6 +89,7 @@ function OtpVerifyPop({ Open, close, style, user }: props) {
       ToastError("Unable to send otp");
     }
   };
+
   return (
     <Dialog
       open={Open}
@@ -115,7 +152,7 @@ function OtpVerifyPop({ Open, close, style, user }: props) {
               Type="submit"
               Text="Verify"
             />
-            {user !== null && (
+            {canReSendOtp && ( // => Yes
               <Button
                 OnCLick={reSendOtp}
                 variant="contained"
@@ -123,6 +160,15 @@ function OtpVerifyPop({ Open, close, style, user }: props) {
                 Type="button"
                 Text="Re-send"
               />
+            )}
+            {!canReSendOtp && (
+              <div
+                onClick={SetTimer}
+                className="font-inter font-bold text-[14px] leading-[21px] text-center min-w-[60px] border-[2px] border-transparent rounded-[6px] bg-brand-main disabled pointer-events-none flex justify-center items-center text-white h-[45px] mt-6 w-[120px]"
+              >
+                {"0" + minutes + ":"}
+                {seconds < 10 ? `0${seconds}` : seconds}
+              </div>
             )}
           </div>
         </form>

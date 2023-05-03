@@ -7,8 +7,18 @@ import PasswordInput from "../Shared/Inputs/PasswordInput";
 import Button from "../Shared/Buttons/Button";
 import Divider from "../Shared/Divider";
 import Link from "next/link";
+import md5 from "md5";
+import api from "../../utils/axiosInstance";
+import { ToastError, ToastSuccess } from "../Shared/Toasts/Notification";
+import LogError from "../../utils/LogError";
+import { useCookies } from "react-cookie";
+import { useRouter } from "next/router";
+import { useAuth } from "../../hooks/useAuth";
 
 const Login = () => {
+  const { setIsAuthenticated } = useAuth();
+  const Router = useRouter();
+  const [cookies, setCookie, removeCookie] = useCookies();
   const [Inputs, SetInputs] = useState({
     Email: "",
     Password: "",
@@ -18,8 +28,30 @@ const Login = () => {
     SetInputs({ ...Inputs, [name]: value });
   };
 
-  const SubmitLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  const SubmitLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    try {
+      const response = await api.post("/login", {
+        email: Inputs.Email,
+        password: md5(Inputs.Password),
+      });
+      if (response) {
+        console.log(response);
+        if (response?.status === 200) {
+          setCookie("jwToken", response?.data?.token, {
+            expires: new Date(Date.now() + 3600),
+          });
+          setIsAuthenticated(true);
+          Router.push("/");
+        }
+        if (response?.status === 401) {
+          ToastError(response.data.message);
+        }
+      }
+    } catch (error) {
+      LogError("Login", error);
+      ToastError("Unable to login");
+    }
   };
 
   return (
